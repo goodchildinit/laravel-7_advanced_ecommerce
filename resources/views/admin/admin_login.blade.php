@@ -37,6 +37,16 @@
         </div>
       @endif
 
+      @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
         <!-- I Chigozie Added CSRF --->
       <form action=" {{ url('/admin') }}" method="post">@csrf
         <div class="input-group mb-3">
