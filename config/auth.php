@@ -41,7 +41,7 @@ return [
             'provider' => 'users',
         ],
 
-        'admin' => [
+        'admin' => [ // i chigozie added this....
             'driver' => 'session',
             'provider' => 'admins',
         ],
@@ -76,7 +76,7 @@ return [
             'model' => App\User::class,
         ],
 
-        'admins' => [
+        'admins' => [ // i chigozie added this....
             'driver' => 'eloquent',
             'model' => App\Admin::class,
         ],
