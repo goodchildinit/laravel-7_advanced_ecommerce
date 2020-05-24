@@ -29,7 +29,7 @@
               <!-- general form elements -->
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Update Password</h3>
+                  <h3 class="card-title">Update Admin Details</h3>
                 </div>
                 <!-- /.card-header -->
                 @if(Session::has('error_message'))
@@ -49,35 +49,42 @@
                   </button>
               </div>
             @endif
+            @if ($errors->any())
+            <div class="alert alert-danger"  style="margin-top:10px;">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
                 <!-- form start -->
-            <form role="form" method="post" action = "{{ url('/admin/update-current-pwd') }}" name="UpdatePasswordForm"
-                   id="UpdatePasswordForm">@csrf
+            <form role="form" method="post" action = "{{ url('/admin/update-admin-details') }}" name="UpdateAdminDetails"
+                   id="UpdateAdminDetails" enctype="multipart/form-data">@csrf
                   <div class="card-body">
-                     {{--  <div class="form-group">
-                        <label for="exampleInputEmail1">Admin Name</label>
-                        <input type="text" class="form-control" value="{{ $adminDetails->name }}"
-                        placeholder="Enter Admin/Sub Admin Name" id="admin_name" name="admin_name">
-                      </div> --}}
                     <div class="form-group">
                       <label for="exampleInputEmail1">Admin Email</label>
-                      <input  class="form-control" value={{ $adminDetails->email }}" readonly="">
+                      <input  class="form-control" value="{{ Auth::guard('admin')->user()->email }}" readonly="">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Admin Type</label>
-                        <input  class="form-control" value="{{ $adminDetails->type }}" readonly="">
+                        <input  class="form-control" value="{{ Auth::guard('admin')->user()->type }}" readonly="">
                       </div>
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Current Password</label>
-                      <input type="password" class="form-control" id="current_pwd" name="current_pwd" placeholder="Enter Current Password" required="">
-                      <span id="chkCurrentPwd"></span>
+                      <label for="exampleInputPassword1">Name</label>
+                      <input type="text" class="form-control" id="admin_name" name="admin_name"  value="{{ Auth::guard('admin')->user()->name }}" placeholder="Enter Admin Name" required="">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">New Password</label>
-                        <input type="password" class="form-control" id="new_pwd" name="new_pwd"  placeholder="Enter New Password" required="">
+                        <label for="exampleInputPassword1">Mobile</label>
+                        <input type="text" class="form-control" id="admin_mobile" name="admin_mobile" value="{{ Auth::guard('admin')->user()->mobile }}"  placeholder="Enter Admin Mobile" required="">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Confirm Password</label>
-                        <input type="password" class="form-control" id="confirm_pwd" name="confirm_pwd"  placeholder="Confirm New Password" required="">
+                        <label for="exampleInputPassword1">Image</label>
+                        <input type="file" class="form-control" id="admin_image" name="admin_image" accept="image/*">
+                        @if(!empty(Auth::guard('admin')->user()->image))
+                    <a target="_blank" href="{{ url('images/admin_images/admin_photos/'. Auth::guard('admin')->user()->image) }}">View Image</a>
+                    <input type="hidden" name="current_admin_image" value="{{ Auth::guard('admin')->user()->image }}">
+                        @endif
                     </div>
                   </div>
                   <!-- /.card-body -->

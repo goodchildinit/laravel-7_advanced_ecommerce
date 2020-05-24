@@ -19,6 +19,6 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        "/admin/check-current-pwd" // I added this to skip the CSRF token
     ];
 }

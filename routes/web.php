@@ -29,5 +29,11 @@ Route::prefix('/admin')->namespace('Admin')->group(function() {
     Route::get('settings', 'AdminController@settings');
     Route::get('logout', 'AdminController@logout');
 
+    // Route to check Current Password from admin_scripts.js
+    Route::post('check-current-pwd','AdminController@chkCurrentPassword');
+     // Route to Update Current Password from admin_scripts.js
+    Route::post('update-current-pwd','AdminController@updateCurrentPassword');
+    Route::match(['get','post'], 'update-admin-details', 'AdminController@updateAdminDetails');
+
   });
 });
