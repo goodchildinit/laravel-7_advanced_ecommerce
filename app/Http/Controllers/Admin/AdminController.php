@@ -14,10 +14,12 @@ class AdminController extends Controller
 {
     //
     public function dashboard(){
+        Session::put('page','dashboard');
         return view('admin.admin_dashboard');
     }
 
     public function settings() {
+        Session::put('page','settings');
         // echo "<pre>"; print_r(Auth::guard('admin')->user()); die;
         $adminDetails = Admin::where('email', Auth::guard('admin')->user()->email)->first();
         return view('admin.admin_settings')->with(compact('adminDetails'));
@@ -84,6 +86,7 @@ class AdminController extends Controller
     }
 
     public function updateAdminDetails(Request $request) {
+        Session::put('page','update-admin-details');
         if ($request->isMethod('post')) {
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
